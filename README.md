@@ -3,3 +3,6 @@
 
 # use
 npm install
+
+# visit 
+npm run dev

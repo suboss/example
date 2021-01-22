@@ -25,6 +25,7 @@
     v-else-if="!subroute.hidden"
     :index="genPath(fatherpath, subroute.path)"
     ><i :class="subroute.icons"></i>
+    <!-- span的标记必须有，否则在缩小时会菜单在文件还显示 -->
     <span slot="title">{{ subroute.name }}</span>
   </el-menu-item>
 </template>

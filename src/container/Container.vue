@@ -3,7 +3,7 @@
     <el-header class="app-header">
       <div class="app-header-logo">
         <a @click="haldleShow()" href="#"
-          ><img src="@/assets/logo.png" height="60"
+          ><img src="@/assets/logo.png" height="40"
         /></a>
       </div>
       <div class="app-header-userinfo">

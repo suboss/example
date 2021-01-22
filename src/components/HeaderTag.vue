@@ -1,14 +1,11 @@
 <template>
   <el-card class="box-card" body-style="padding:10px; text-align:left;">
-    <el-tag
-      v-for="tag in tags"
-      :key="tag.name"
-      closable
-      :type="tag.type"
-      @close="handleCloseTag(tag)"
-    >
-      {{ tag.name }}
-    </el-tag>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+      <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+   </el-breadcrumb>
   </el-card>
 </template>
 

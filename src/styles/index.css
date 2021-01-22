@@ -58,9 +58,11 @@ html {
     background-color: white;
   }
   .el-header > .app-header-logo{
-    left: 10px;
-    float: left;
+    height: 40px;
+    margin-left: 20px;
+    margin-top: 5px;
   }
+  
 
   .el-header > .app-header-userinfo {
     line-height: 60px;
@@ -86,6 +88,12 @@ html {
     padding: 5px;
     margin: 0px;
     overflow-y: scroll;
+  }
+  
+  .divCondition{
+     text-align: left;
+     min-height: 40px;
+     padding: 5px;
   }
 
   .inline-block {

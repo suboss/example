@@ -28,19 +28,7 @@ export default new Router({
           path: 'dashboard',
           name: '系统首页',
           component: Dashboard,
-          icons: 'el-icon-s-home',
-          children: [
-            { path: 'dashboard1', name: '系统首页1', component: Dashboard, icons: 'el-icon-s-home' },
-            {
-              path: 'dashboard2',
-              name: '系统首页2',
-              component: Dashboard,
-              icons: 'el-icon-s-home',
-              children: [
-                { path: 'dashboard3', name: '系统首页3', component: Dashboard, icons: 'el-icon-s-home' }
-              ]
-            }
-          ]
+          icons: 'el-icon-s-home'
         },
         {
           path: 'article',

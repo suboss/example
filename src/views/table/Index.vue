@@ -1,11 +1,21 @@
 <template>
   <el-container>
+    <div class="divCondition" id="divCondition">
+      <el-button type="primary" @click="handleAddData()"
+        >新增一行数据</el-button
+      >
+      <el-button @click="dialogFormVisible = true" type="primary"
+        >新增</el-button
+      >
+    </div>
     <el-main>
       <el-table
         :data="tableData"
+        ref="tableData"
         border
-        style="width: 100%"
+        style="width: 100%; height: 100%"
         :row-class-name="rowClassName"
+        id="tablelist"
       >
         <el-table-column
           type="selection"
@@ -31,6 +41,11 @@
               label="删除"
               @click="handleDelData(scope.$index)"
               >删除</el-button
+            ><el-button
+              type="primary"
+              lable="修改"
+              @click="handleUpData(scope.row)"
+              >修改</el-button
             >
           </template>
         </el-table-column>
@@ -47,9 +62,7 @@
         :total="tableData.length"
       >
       </el-pagination>
-      <el-button type="primary" @click="handleAddData()">新增</el-button>
-      <el-button @click="dialogFormVisible = true">添加</el-button>
-      <div>总价：{{ totalPrice }}</div>
+      <div style="display: none">总价：{{ totalPrice }}</div>
     </el-footer>
     <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
       <el-form :model="form">
@@ -68,9 +81,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleNewData"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="handleNewData">确 定</el-button>
       </div>
     </el-dialog>
   </el-container>
@@ -83,6 +94,8 @@ export default {
       currentPage4: 4,
       dialogFormVisible: false,
       tableData: [],
+      isAdd: true,
+      upRow: [],
       form: {
         price: 234.22,
         name: '张飞',
@@ -92,8 +105,12 @@ export default {
       formLabelWidth: '120px'
     }
   },
-  created: function() {
+  created: function () {
     this.initData()
+  },
+  mounted() {
+    window.onresize = this.resize()
+    // this.resize()
   },
   computed: {
     totalPrice: function () {
@@ -107,6 +124,9 @@ export default {
     getList: function () {
       return this.tableData
     }
+  },
+  destroyed() {
+    window.onresize = null
   },
   methods: {
     rowClassName({ row, rowIndex }) {
@@ -125,6 +145,7 @@ export default {
       console.log('当前页: {' + val + '}')
     },
     handleAddData() {
+      this.isAdd = true
       // 新增数据
       this.tableData.push({
         date: '2021-01-21',
@@ -139,13 +160,29 @@ export default {
         this.tableData.splice(index, 1)
       }
     },
+    handleUpData(row) {
+      this.isAdd = false
+      this.dialogFormVisible = true
+      this.form.date = row.date
+      this.form.name = row.name
+      this.form.address = row.address
+      this.form.price = row.price
+      this.upRow = row
+    },
     handleNewData() {
-      this.tableData.push({
-        date: this.form.date,
-        name: this.form.name,
-        address: this.form.address,
-        price: this.form.price
-      })
+      if (this.isAdd) {
+        this.tableData.push({
+          date: this.form.date,
+          name: this.form.name,
+          address: this.form.address,
+          price: this.form.price
+        })
+      } else {
+        this.upRow.date = this.form.date
+        this.upRow.name = this.form.name
+        this.upRow.address = this.form.address
+        this.upRow.price = this.form.price
+      }
       this.dialogFormVisible = false
     },
     initData() {
@@ -160,6 +197,14 @@ export default {
           // 失败
           console.log(error)
         })
+    },
+    resize() {
+      console.log(this.$refs.tableData)
+      let tb = this.$refs.tableData
+      var height = document.documentElement.clientHeight || document.body.clientHeight
+      var dheight = document.getElementById('divCondition')
+      console.log('height = ' + height)
+      tb.height = parseInt(height - dheight.clientHeight - 45 - 60 - 70)
     }
   }
 }
