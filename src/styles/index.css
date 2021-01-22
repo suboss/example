@@ -1,0 +1,93 @@
+html {
+    height: 100%;
+  }
+  
+  body {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .app {
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    font-size: 1em;
+    width: 100%;
+    height: 100%;
+    min-width: 900px;
+    border: 1px solid #eee;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    
+  }
+
+  .layout-container{
+    height: 100%;
+  }
+
+  .el-main {
+    background-color:  white;
+    color: #333;
+    text-align: center;
+    padding: 0px;
+    margin-top: 3px;
+  }
+  .el-header {
+    padding: 0;
+    z-index: 1000;
+    background: #545c64;
+    color: #333;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #eee; 
+  }
+  .el-footer {
+    padding-top: 10px;
+    width: 100%;
+    text-align: right;
+    background-color: white;
+  }
+  .el-header > .app-header-logo{
+    left: 10px;
+    float: left;
+  }
+
+  .el-header > .app-header-userinfo {
+    line-height: 60px;
+    position: absolute;
+    right: 0;
+    margin-right: 25px;
+    flex-flow: row nowrap;
+    height: 60px;
+    align-items: center;
+  }
+  .el-dropdown-link{
+    color: #eee;
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    height: 100%;
+  }
+
+  .app-body{
+    font-size: 1em;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    margin: 0px;
+    overflow-y: scroll;
+  }
+
+  .inline-block {
+    display: inline-block;
+  }
