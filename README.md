@@ -1,4 +1,5 @@
 # example
  my first vue project
 
-# npm install
+# use
+npm install
