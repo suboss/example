@@ -13,14 +13,16 @@ import Table from '@/views/table'
 import Users from '@/views/manager/users'
 import Roles from '@/views/manager/roles/Index'
 import Menus from '@/views/manager/menus/Index'
+import Manager from '@/views/manager'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history', // 注意这里的history 必须带上单引号，否则有可能显示访问不到，不加单引号，这里也不会报错。
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
+      // redirect: '/login',
       name: 'Container',
       component: Container,
       children: [
@@ -34,10 +36,7 @@ export default new Router({
           path: 'article',
           name: '文章',
           component: Article,
-          icons: 'el-icon-s-comment',
-          children: [
-            { path: 'dashboard3', name: '文章33', component: Dashboard, icons: 'el-icon-s-home' }
-          ]
+          icons: 'el-icon-s-comment'
         },
         { path: 'tab', name: '选项卡', component: Tab, icons: 'el-icon-phone' },
         { path: 'tree', name: '树控件', component: Tree, icons: 'el-icon-question' },
@@ -46,19 +45,20 @@ export default new Router({
         { path: 'form', name: '表单', component: Form, icons: 'el-icon-s-finance' },
         { path: 'table', name: '表格', component: Table, icons: 'el-icon-s-grid' },
         {
-          path: '/manager',
+          path: 'manager',
           name: '系统管理',
           icons: 'el-icon-setting',
+          component: Manager,
           children: [
-            { path: 'manager/users', name: '用户管理', component: Users, icons: 'el-icon-user' },
-            { path: 'manager/roles', name: '角色管理', component: Roles, icons: 'el-icon-s-check' },
-            { path: 'manager/menus', name: '菜单管理', component: Menus, icons: 'el-icon-menu' }
+            { path: 'users', name: '用户管理', component: Users, icons: 'el-icon-user' },
+            { path: 'roles', name: '角色管理', component: Roles, icons: 'el-icon-s-check' },
+            { path: 'menus', name: '菜单管理', component: Menus, icons: 'el-icon-menu' }
           ]
         }
       ]
     },
     {
-      path: '/login',
+      path: '/',
       name: 'Login',
       component: Login
     }
