@@ -21,6 +21,11 @@ export default new Router({
   mode: 'history', // 注意这里的history 必须带上单引号，否则有可能显示访问不到，不加单引号，这里也不会报错。
   routes: [
     {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
       path: '/',
       // redirect: '/login',
       name: 'Container',
@@ -28,7 +33,7 @@ export default new Router({
       children: [
         {
           path: 'dashboard',
-          name: '系统首页',
+          name: '首页',
           component: Dashboard,
           icons: 'el-icon-s-home'
         },
@@ -56,11 +61,6 @@ export default new Router({
           ]
         }
       ]
-    },
-    {
-      path: '/',
-      name: 'Login',
-      component: Login
     }
   ]
 })

@@ -49,7 +49,7 @@
       </el-menu> -->
         <Sidebar
           :collapse="isCollapse"
-          :routes="$router.options.routes[0].children"
+          :routes="$router.options.routes[1].children"
         />
       </el-aside>
       <el-main class="app-body">

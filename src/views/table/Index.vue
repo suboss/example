@@ -184,6 +184,7 @@ export default {
         this.upRow.price = this.form.price
       }
       this.dialogFormVisible = false
+      this.$message('数据保存成功')
     },
     initData() {
       var that = this
@@ -199,12 +200,12 @@ export default {
         })
     },
     resize() {
-      console.log(this.$refs.tableData)
-      let tb = this.$refs.tableData
-      var height = document.documentElement.clientHeight || document.body.clientHeight
-      var dheight = document.getElementById('divCondition')
-      console.log('height = ' + height)
-      tb.height = parseInt(height - dheight.clientHeight - 45 - 60 - 70)
+      // console.log(this.$refs.tableData)
+      // let tb = this.$refs.tableData
+      // var height = document.documentElement.clientHeight || document.body.clientHeight
+      // var dheight = document.getElementById('divCondition')
+      // console.log('height = ' + height)
+      // tb.height = parseInt(height - dheight.clientHeight - 45 - 60 - 70)
     }
   }
 }

@@ -57,23 +57,30 @@ export default {
   methods: {
     // 生成侧边栏路由，格式: /a/b/c
     genPath: function () {
-      console.log('is error')
       let arr = [...arguments]
-      // console.log(arr)
+      console.log(arr)
       // let path = arr
       //  .map((v) => {
-      //    while (v[0] === '/') {
+      //   while (v[0] === '/') {
       //      v = v.substring(1)
+      //   }
+      //    while (v[1] === '/') {
+      //      v = v.substring(0, v.length)
       //    }
-      //    while (v[-1] === '/') {
-      //     v = v.substring(0, v.length)
-      //     }
-      //    return v
+      //   return v
       //  })
-      //  .join('/')
+      // .join('/')
+      // console.log(path)
       // path = path[0] === '/' ? path : '/' + path
-      // console.log(arr[1])
-      return '/' + arr[1]
+      let path = '/'
+      if (arr.length > 0) {
+        if (arr[0] === '/') {
+          path = path + arr[1]
+        } else {
+          path = arr[0] + '/' + arr[1]
+        }
+      }
+      return path
     },
     handleOpen: function (key, keyPath) {
       console.log(key, keyPath)

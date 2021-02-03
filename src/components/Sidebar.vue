@@ -38,6 +38,8 @@ export default {
     },
     fatherPath() {
       // 这里直接获取路由配置的 '/' 项
+      console.log(this.$router.options)
+      // 这个是获取父路径的方法
       return this.$router.options.routes[1].path
     }
   }
