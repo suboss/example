@@ -86,7 +86,9 @@ export default {
 
 <style scoped>
 .login-container {
-  position: absolute;
+  margin: auto;
+  padding-top: 300px;
+  width: 400px;
 }
 .login-page {
   -webkit-border-radius: 5px;

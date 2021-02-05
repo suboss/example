@@ -1,15 +1,31 @@
 <template>
   <el-container>
     <div class="divCondition" id="divCondition">
-      <el-button type="primary" @click="handleAddData()"
-        >新增一行数据</el-button
-      >
-      <el-button @click="dialogFormVisible = true" type="primary"
-        >新增</el-button
-      >
+      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="姓名">
+          <el-input v-model="formInline.username" placeholder="姓名"></el-input>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-input v-model="formInline.address" placeholder="地址"></el-input>
+        </el-form-item>
+        <el-form-item label="日期">
+          <EDateRagePicker v-on:changed="handleDataChanged"></EDateRagePicker>
+        </el-form-item>
+        <el-form-item label="时间">
+          <EDateTimeRagePicker ref="eDataTimeRanger"></EDateTimeRagePicker>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSel">查询</el-button>
+          <el-button @click="dialogFormVisible = true" type="primary"
+            >新增</el-button
+          >
+          <el-button type="danger">删除</el-button>
+        </el-form-item>
+      </el-form>
     </div>
     <el-main>
       <el-table
+        v-loading="loading"
         :data="tableData"
         ref="tableData"
         border
@@ -28,25 +44,42 @@
           width="60"
           align="center"
         ></el-table-column>
-        <el-table-column prop="date" label="时间" width="180" align="center">
-        </el-table-column>
         <el-table-column prop="name" label="姓名" width="180" align="center">
+        </el-table-column>
+        <el-table-column prop="date" label="时间" width="180" align="center">
         </el-table-column>
         <el-table-column prop="address" label="地址"> </el-table-column>
         <el-table-column prop="price" label="价格"> </el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <el-button
-              type="primary"
-              label="删除"
-              @click="handleDelData(scope.$index)"
-              >删除</el-button
-            ><el-button
-              type="primary"
-              lable="修改"
-              @click="handleUpData(scope.row)"
-              >修改</el-button
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="删除"
+              placement="top"
             >
+              <el-button
+                type="danger"
+                label="删除"
+                @click="handleDelData(scope.$index)"
+                icon="el-icon-delete"
+                circle
+              ></el-button>
+            </el-tooltip>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="修改"
+              placement="top"
+            >
+              <el-button
+                type="primary"
+                lable="修改"
+                @click="handleUpData(scope.row)"
+                icon="el-icon-edit"
+                circle
+              ></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -88,29 +121,42 @@
 </template>
 
 <script>
+// 自定义组件，日期、时间范围组件
+import EDateRagePicker from '@/components/EDateRagePicker'
+import EDateTimeRagePicker from '@/components/EDateTimeRagePicker'
+
 export default {
   data() {
     return {
-      currentPage4: 4,
+      currentPage4: 1,
       dialogFormVisible: false,
       tableData: [],
       isAdd: true,
       upRow: [],
       form: {
         price: 234.22,
-        name: '张飞',
-        address: '北京市',
-        date: '2021-01-10'
+        name: '',
+        address: '',
+        date: ''
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '120px',
+      formInline: {
+        username: '',
+        address: ''
+      },
+      loading: true
     }
   },
+  components: {
+    EDateRagePicker,
+    EDateTimeRagePicker
+  },
   created: function () {
+    // 初始加载数据
     this.initData()
   },
   mounted() {
     window.onresize = this.resize()
-    // this.resize()
   },
   computed: {
     totalPrice: function () {
@@ -129,6 +175,7 @@ export default {
     window.onresize = null
   },
   methods: {
+    //  显示每行行号
     rowClassName({ row, rowIndex }) {
       // 把每一行的索引放进row.id
       row.id = rowIndex + 1
@@ -143,16 +190,6 @@ export default {
     },
     handleCurrentChange(val) {
       console.log('当前页: {' + val + '}')
-    },
-    handleAddData() {
-      this.isAdd = true
-      // 新增数据
-      this.tableData.push({
-        date: '2021-01-21',
-        name: '新增',
-        address: '北京市海淀区',
-        price: 29213.2
-      })
     },
     handleDelData(index) {
       // 删除数据
@@ -187,15 +224,23 @@ export default {
       this.$message('数据保存成功')
     },
     initData() {
+      this.loading = true
       var that = this
       this.$http
-        .get('/api/Login/GetList')
+        .get('/api/Login/GetList', {
+          params: {
+            uN: that.formInline.username,
+            aD: that.formInline.address
+          }
+        })
         .then(function (result) {
           // 此处不能使用this 关键字，因为this 关键字指向的函数本身，并非vue对象，所以在调用函数之前需要获得vue对象的一个指向，利用闭包原理：函数内部可以访问函数外部的对象
           that.tableData = result.data
+          that.loading = false
         })
         .catch(function (error) {
           // 失败
+          that.loading = false
           console.log(error)
         })
     },
@@ -206,6 +251,21 @@ export default {
       // var dheight = document.getElementById('divCondition')
       // console.log('height = ' + height)
       // tb.height = parseInt(height - dheight.clientHeight - 45 - 60 - 70)
+    },
+    handleSel() {
+      console.log('Get Child Component DateTimeRanger ')
+      let arValue = this.$refs.eDataTimeRanger.value2
+      // 这是获取子组件的第二种方法，通过在子组件调用处设置ref属性
+      if (arValue.length > 0) {
+        console.log(arValue[0])
+        console.log(arValue[1])
+      }
+      // 查询数据
+      this.initData()
+    },
+    handleDataChanged(nvMin, nvMax) {
+      console.log('nvMin = ' + nvMin)
+      console.log('nvMax = ' + nvMax)
     }
   }
 }

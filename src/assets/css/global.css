@@ -3,3 +3,7 @@ html,body,#app{
     margin: 0px;
     padding: 0px;
 }
+/* 覆盖默认样式 */
+.el-form-item{
+    margin-bottom: 5px !important;
+}
