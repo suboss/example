@@ -126,7 +126,7 @@ import EDateRagePicker from '@/components/EDateRagePicker'
 import EDateTimeRagePicker from '@/components/EDateTimeRagePicker'
 
 export default {
-  data() {
+  data () {
     return {
       currentPage4: 1,
       dialogFormVisible: false,
@@ -155,7 +155,7 @@ export default {
     // 初始加载数据
     this.initData()
   },
-  mounted() {
+  mounted () {
     window.onresize = this.resize()
   },
   computed: {
@@ -171,12 +171,12 @@ export default {
       return this.tableData
     }
   },
-  destroyed() {
+  destroyed () {
     window.onresize = null
   },
   methods: {
     //  显示每行行号
-    rowClassName({ row, rowIndex }) {
+    rowClassName ({ row, rowIndex }) {
       // 把每一行的索引放进row.id
       row.id = rowIndex + 1
       if (rowIndex % 2 === 0) {
@@ -185,19 +185,34 @@ export default {
         return 'success-row'
       }
     },
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       console.log('每页 {' + val + '} 条')
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       console.log('当前页: {' + val + '}')
     },
-    handleDelData(index) {
-      // 删除数据
-      if (this.tableData && this.tableData.length > 0) {
-        this.tableData.splice(index, 1)
-      }
+    handleDelData (index) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 删除数据
+        if (this.tableData && this.tableData.length > 0) {
+          this.tableData.splice(index, 1)
+        }
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
-    handleUpData(row) {
+    handleUpData (row) {
       this.isAdd = false
       this.dialogFormVisible = true
       this.form.date = row.date
@@ -206,7 +221,7 @@ export default {
       this.form.price = row.price
       this.upRow = row
     },
-    handleNewData() {
+    handleNewData () {
       if (this.isAdd) {
         this.tableData.push({
           date: this.form.date,
@@ -223,7 +238,7 @@ export default {
       this.dialogFormVisible = false
       this.$message('数据保存成功')
     },
-    initData() {
+    initData () {
       this.loading = true
       var that = this
       this.$http
@@ -244,7 +259,7 @@ export default {
           console.log(error)
         })
     },
-    resize() {
+    resize () {
       // console.log(this.$refs.tableData)
       // let tb = this.$refs.tableData
       // var height = document.documentElement.clientHeight || document.body.clientHeight
@@ -252,7 +267,7 @@ export default {
       // console.log('height = ' + height)
       // tb.height = parseInt(height - dheight.clientHeight - 45 - 60 - 70)
     },
-    handleSel() {
+    handleSel () {
       console.log('Get Child Component DateTimeRanger ')
       let arValue = this.$refs.eDataTimeRanger.value2
       // 这是获取子组件的第二种方法，通过在子组件调用处设置ref属性
@@ -263,7 +278,7 @@ export default {
       // 查询数据
       this.initData()
     },
-    handleDataChanged(nvMin, nvMax) {
+    handleDataChanged (nvMin, nvMax) {
       console.log('nvMin = ' + nvMin)
       console.log('nvMax = ' + nvMax)
     }

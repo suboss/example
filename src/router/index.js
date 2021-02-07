@@ -15,6 +15,7 @@ import Roles from '@/views/manager/roles/Index'
 import Menus from '@/views/manager/menus/Index'
 import Manager from '@/views/manager'
 import Echarts from '@/views/total'
+import EMap from '@/views/map'
 Vue.use(Router)
 
 export default new Router({
@@ -50,6 +51,7 @@ export default new Router({
         { path: 'form', name: '表单', component: Form, icons: 'el-icon-s-finance' },
         { path: 'table', name: '表格', component: Table, icons: 'el-icon-s-grid' },
         { path: 'total', name: '图形', component: Echarts, icons: 'el-icon-data-analysis' },
+        { path: 'map', name: '地图', component: EMap, icons: 'el-icon-data-analysis' },
         {
           path: 'manager',
           name: '系统管理',

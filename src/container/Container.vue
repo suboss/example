@@ -6,6 +6,9 @@
           ><img src="@/assets/logo.png" height="40"
         /></a>
       </div>
+      <div class="app-header-title">
+        <span>后台管理系统</span>
+      </div>
       <div class="app-header-userinfo">
         <el-dropdown trigger="hover" :hide-on-click="false">
           <span class="el-dropdown-link">
@@ -53,7 +56,7 @@
         />
       </el-aside>
       <el-main class="app-body">
-        <HeaderTag />
+        <!-- <HeaderTag /> -->
         <template>
           <router-view />
         </template>
@@ -110,3 +113,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ .app-header-title{
+    display: block;
+    color: white;
+    font-size: 24px;
+    float: left;
+    font-family: "Microsoft YaHei";
+ }
+</style>

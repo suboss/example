@@ -99,3 +99,7 @@ html {
   .inline-block {
     display: inline-block;
   }
+
+  .layout-container{
+    height:100%
+  }
