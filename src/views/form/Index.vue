@@ -1,4 +1,5 @@
 <template>
+<div class="layout-container" style="text-align:left">
   <el-form ref="form" :model="form">
     <el-input-number
       v-model="form.num"
@@ -40,6 +41,7 @@
       <el-button>取消</el-button>
     </el-form-item>
   </el-form>
+</div>
 </template>
 <script>
 export default {
