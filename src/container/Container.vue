@@ -17,7 +17,7 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>我的消息</el-dropdown-item>
-            <el-dropdown-item>设置</el-dropdown-item>
+            <el-dropdown-item @click="drawer = true">设置</el-dropdown-item>
             <el-dropdown-item divided @click.native="logout"
               >退出登录</el-dropdown-item
             >
@@ -73,7 +73,8 @@ export default {
   data() {
     return {
       username: '',
-      isCollapse: false
+      isCollapse: false,
+      drawer: false
     }
   },
   components: {
