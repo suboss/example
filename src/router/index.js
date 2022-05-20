@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Container from '@/container/Container'
+import Container from '@/container/ContainerLR'
 import Login from '@/views/Login'
 import Dashboard from '@/views/dashboard'
 import Article from '@/views/article'
@@ -19,7 +19,7 @@ import EMap from '@/views/map'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history', // 注意这里的history 必须带上单引号，否则有可能显示访问不到，不加单引号，这里也不会报错。
+  mode: 'hash',
   routes: [
     {
       path: '/login',
@@ -58,7 +58,17 @@ export default new Router({
           icons: 'el-icon-setting',
           component: Manager,
           children: [
-            { path: 'users', name: '用户管理', component: Users, icons: 'el-icon-user' },
+            {
+              path: 'users',
+              name: '用户管理',
+              component: Users,
+              icons: 'el-icon-user',
+              children: [
+                { path: 'users', name: '用户管理', component: Users, icons: 'el-icon-user' },
+                { path: 'roles', name: '角色管理', component: Roles, icons: 'el-icon-s-check' },
+                { path: 'menus', name: '菜单管理', component: Menus, icons: 'el-icon-menu' }
+              ]
+            },
             { path: 'roles', name: '角色管理', component: Roles, icons: 'el-icon-s-check' },
             { path: 'menus', name: '菜单管理', component: Menus, icons: 'el-icon-menu' }
           ]

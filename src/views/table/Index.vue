@@ -1,30 +1,33 @@
 <template>
-  <el-container>
-    <div class="divCondition" id="divCondition">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="姓名">
-          <el-input v-model="formInline.username" placeholder="姓名"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
+   <div class="main-box">
+      <div class="data-box">
+        <div class="search-box box-radis">
+          <div>
+            <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="姓名">
+              <el-input v-model="formInline.username" placeholder="姓名"></el-input>
+            </el-form-item>
+            <el-form-item label="地址">
           <el-input v-model="formInline.address" placeholder="地址"></el-input>
-        </el-form-item>
-        <el-form-item label="日期">
-          <EDateRagePicker v-on:changed="handleDataChanged"></EDateRagePicker>
-        </el-form-item>
-        <el-form-item label="时间">
-          <EDateTimeRagePicker ref="eDataTimeRanger"></EDateTimeRagePicker>
-        </el-form-item>
-        <el-form-item>
+          </el-form-item>
+             <el-form-item label="日期">
+                <EDateRagePicker v-on:changed="handleDataChanged"></EDateRagePicker>
+              </el-form-item>
+          <el-form-item label="时间">
+             <EDateTimeRagePicker ref="eDataTimeRanger"></EDateTimeRagePicker>
+          </el-form-item>
+              <el-form-item>
           <el-button type="primary" @click="handleSel">查询</el-button>
           <el-button @click="dialogFormVisible = true" type="primary"
             >新增</el-button
           >
           <el-button type="danger">删除</el-button>
         </el-form-item>
-      </el-form>
-    </div>
-    <el-main>
-      <el-table
+          </el-form>
+          </div>
+        </div>
+        <div class="list-box box-radis">
+           <el-table
         v-loading="loading"
         :data="tableData"
         ref="tableData"
@@ -83,9 +86,9 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-main>
-    <el-footer>
-      <el-pagination
+        </div>
+      </div>
+      <div class="page-box box-radis">      <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage4"
@@ -94,10 +97,8 @@
         layout="total, sizes, prev, pager, next, jumper"
         :total="tableData.length"
       >
-      </el-pagination>
-      <div style="display: none">总价：{{ totalPrice }}</div>
-    </el-footer>
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+      </el-pagination></div>
+          <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="活动名称" :label-width="formLabelWidth">
           <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -117,9 +118,66 @@
         <el-button type="primary" @click="handleNewData">确 定</el-button>
       </div>
     </el-dialog>
-  </el-container>
+   </div>
 </template>
 
+<script setup>
+</script>
+
+<style scoped>
+ /* 已经在 index 样式表中增加了相应的样式*/
+ .main-box{
+   position: relative;
+   width: inherit;
+   height: inherit;
+   background-color:#f2f3f7;
+   overflow: hidden;
+   padding: 0px;
+   margin: 0px;
+ }
+ .data-box,.page-box{
+   left: 15px;
+   right: 15px;
+   position: absolute;
+ }
+ .search-box{
+   min-height: 60px;
+ }
+ .data-box{
+   top: 10px;
+   height: auto;
+   bottom: 70px;
+ }
+  .page-box{
+   height: 60px;
+   bottom: 0px;
+ }
+ .search-box,.list-box{
+    position: absolute;
+    width: 100%;
+ }
+ .list-box{
+   height: auto;
+   top: 70px;
+   bottom: 0px;
+ }
+ .box-radis{
+   border-radius: 14px 14px 14px 14px;
+   background-color: #fff;
+   box-shadow: 0vw 4px 4px #eaeef6;
+ }
+
+ /*列表样式*/
+ .el-table td,.el-table th{
+   padding: 3px 0px 3px 0px !important;
+   border: opx !important;
+}
+.el-table--border td, .el-table--border th, .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed
+{
+     padding: 3px 0px 3px 0px !important;
+  border: opx !important;
+}
+</style>
 <script>
 // 自定义组件，日期、时间范围组件
 import EDateRagePicker from '@/components/EDateRagePicker'
@@ -235,6 +293,25 @@ export default {
         this.upRow.address = this.form.address
         this.upRow.price = this.form.price
       }
+      var that = this
+      this.$http.get('/api/Login/SaveUser', {
+        params: {
+          date: that.form.date,
+          name: this.form.name,
+          address: that.form.address,
+          price: that.form.price
+        }
+      })
+        .then(function (result) {
+          // 此处不能使用this 关键字，因为this 关键字指向的函数本身，并非vue对象，所以在调用函数之前需要获得vue对象的一个指向，利用闭包原理：函数内部可以访问函数外部的对象
+          that.tableData = result.data
+          that.loading = false
+        })
+        .catch(function (error) {
+          // 失败
+          that.loading = false
+          console.log(error)
+        })
       this.dialogFormVisible = false
       this.$message('数据保存成功')
     },
@@ -285,13 +362,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.el-table .warning-row {
-  background: white;
-}
-
-.el-table .success-row {
-  background: #f2f7ef;
-}
-</style>

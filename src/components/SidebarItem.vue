@@ -58,7 +58,6 @@ export default {
     // 生成侧边栏路由，格式: /a/b/c
     genPath: function () {
       let arr = [...arguments]
-      console.log(arr)
       // let path = arr
       //  .map((v) => {
       //   while (v[0] === '/') {

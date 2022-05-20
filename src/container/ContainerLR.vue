@@ -1,38 +1,37 @@
 <template>
   <el-container class="layout-container">
-    <el-header class="app-header">
-      <div class="header-box">
-        <ul class="header-tab">
-          <li
-            v-for="(item,index) in headerTabList"
-            :key="index"
-            :style="{width:headerTabWidth + 'vw'}"
-            :title="item"
-            :class="headerTabSelectIndex===index?'select' : ''"
-            @click="clickHeaderTab(index,item)"
-          >
-            <span>{{item}}</span>
-
-            <img v-if="headerTabSelectIndex===index" src="../../assets/images/page/closeSelect.png" alt @click.stop="closeHeaderTab(index,item,$event)" title="关闭" />
-            <img v-else src="../../assets/images/page/close.png" alt @click.stop="closeHeaderTab(index,item,$event)" title="关闭" />
-          </li>
-        </ul>
-
-        <div class="user">
-          <img src="../../assets/images/page/headPortrait.png" alt />
-          <span>超级管理员</span>
-        </div>
-    </div>
-    </el-header>
-    <el-container>
-      <el-aside width="initial">
+    <el-aside width="initial">
         <Sidebar
           :collapse="isCollapse"
           :routes="$router.options.routes[1].children"
         />
-      </el-aside>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <div class="header-main-box">
+           <div class="header-box">
+                <ul class="header-tab">
+                  <li
+                    v-for="(item,index) in headerTabList"
+                    :key="index"
+                    :style="{width:headerTabWidth + 'vw'}"
+                    :title="item"
+                    :class="headerTabSelectIndex===index?'select' : ''"
+                    @click="clickHeaderTab(index,item)"
+                  >
+                    <span>{{item}}</span>
+                    <img v-if="headerTabSelectIndex===index" src="@/assets/images/page/closeSelect.png" alt @click.stop="closeHeaderTab(index,item,$event)" title="关闭" />
+                    <img v-else src="@/assets/images/page/close.png" alt @click.stop="closeHeaderTab(index,item,$event)" title="关闭" />
+                  </li>
+                </ul>
+                <div class="user">
+                  <img src="@/assets/images/page/headPortrait.png" alt />
+                  <span>超级管理员</span>
+                </div>
+            </div>
+        </div>
+      </el-header>
       <el-main class="app-body">
-        <!-- <HeaderTag /> -->
         <template>
           <router-view />
         </template>
@@ -45,7 +44,7 @@
 import Sidebar from '@/components/Sidebar'
 import HeaderTag from '@/components/HeaderTag'
 export default {
-  name: 'Container',
+  name: 'ContainerLR',
   data() {
     return {
       username: '',
@@ -79,7 +78,6 @@ export default {
       console.log(key, keyPath)
     },
     haldleShow() {
-      console.log('xiexie')
       this.isCollapse = !this.isCollapse
     }
   },
@@ -93,12 +91,21 @@ export default {
 </script>
 
 <style scoped>
+.header-main-box{
+   position: relative;
+   width: inherit;
+   height: inherit;
+   background-color:#f2f3f7;
+   overflow: hidden;
+   padding: 0px;
+   margin: 0px;
+}
 .header-box {
   height: 50px;
-  position: absolute;
   right: 20px;
-  left: 248px;
+  left: 20px;
   top: 0;
+  position: absolute;
   border-radius: 0 0 14px 14px;
   background-color: #fff;
   box-shadow: 0vw 4px 4px #eaeef6;

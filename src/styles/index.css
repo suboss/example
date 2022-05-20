@@ -24,31 +24,24 @@ html {
     display: flex;
     display: -webkit-flex;
     flex-flow: row nowrap;
-    
   }
 
-  .layout-container{
-    height: 100%;
-  }
 
   .el-main {
-    background-color:  white;
+    background-color:  #f2f3f7;
     color: #333;
-    padding: 0px;
-    margin-top: 3px;
   }
   .el-header {
     padding: 0;
     z-index: 1000;
-    background: #545c64;
-    color: #333;
+    background: #f2f3f7;
     width: 100%;
-    height: 60px;
+    height: 50px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
-    border-bottom: 1px solid #eee; 
+    border-bottom: 1px solid #f2f3f7; 
   }
   .el-footer {
     padding-top: 10px;
@@ -61,7 +54,21 @@ html {
     margin-left: 20px;
     margin-top: 5px;
   }
-  
+  .el-menu{
+    background-color: #0d1f40;
+    border-right: solid 1px  #0d1f40;
+  }
+  .el-menu-item {
+    color: #B4CBF4;
+
+  }
+  .el-submenu__title{
+    color: #B4CBF4;
+  }
+  .el-aside{
+    background-color: #0d1f40;
+    border-right: solid 1px #0d1f40;
+  }
 
   .el-header > .app-header-userinfo {
     line-height: 60px;
@@ -75,8 +82,21 @@ html {
   .el-dropdown-link{
     color: #eee;
   }
+
+  .el-dropdown-menu
+{
+  background-color: #222327;
+  color: #eee;
+  border: 1px solid #222327;
+}
+
+.el-dropdown-menu__item:not(.is-disabled):hover 
+{
+  background-color: #66b1ff!;
+  color: #eee!;
+}
   .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
+    width: 228px;
     height: 100%;
   }
 
@@ -84,9 +104,9 @@ html {
     font-size: 1em;
     width: 100%;
     height: 100%;
-    padding: 5px;
+    padding: 0px;
     margin: 0px;
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
   
   .divCondition{
@@ -102,3 +122,51 @@ html {
   .layout-container{
     height:100%
   }
+
+  /* 查询列表页面的样式*/
+  
+ .main-box{
+  position: relative;
+  width: inherit;
+  height: inherit;
+  background-color:#f2f3f7;
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+}
+.data-box,.page-box{
+  left: 15px;
+  right: 15px;
+  position: absolute;
+}
+.search-box{
+  min-height: 60px;
+}
+.data-box{
+  top: 10px;
+  height: auto;
+  bottom: 70px;
+}
+ .page-box{
+  height: 60px;
+  bottom: 0px;
+}
+.search-box,.list-box{
+   position: absolute;
+   width: 100%;
+}
+.list-box{
+  height: auto;
+  top: 70px;
+  bottom: 0px;
+}
+.box-radis{
+  border-radius: 14px 14px 14px 14px;
+  background-color: #fff;
+  box-shadow: 0vw 4px 4px #eaeef6;
+}
+
+/*表格去掉样式*/
+.el-table td,.el-table th{
+   border: opx !important;
+}
